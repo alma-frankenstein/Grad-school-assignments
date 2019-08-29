@@ -31,7 +31,7 @@
     "    doors = [\"A\",\"B\", \"C\"]\n",
     "    \n",
     "    \n",
-    "    #prize door is randomly assigned. The prize is Spam.\n",
+    "    #prize door is randomly assigned. The prize is Spam.
     "    spam = random.choice(doors)\n",
     "\n",
     "    #uncomment the following line to see where the prize is.\n",

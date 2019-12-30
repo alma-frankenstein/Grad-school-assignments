@@ -1,95 +1,50 @@
-#needs formatting
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 21,
-   "metadata": {
-    "collapsed": false
-   },
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "runs 4\n",
-      "wins 0\n",
-      "losses 4\n"
-     ]
-    }
-   ],
-   "source": [
-    "runs = 0\n",
-    "wins = 0\n",
-    "losses = 0\n",
-    "\n",
-    "\n",
-    "\n",
-    "num_runs = 3\n",
-    "while runs <= num_runs:\n",
-    "    import random\n",
-    "    \n",
-    "    doors = [\"A\",\"B\", \"C\"]\n",
-    "    \n",
-    "    \n",
-    "    #prize door is randomly assigned. The prize is Spam.
-    "    spam = random.choice(doors)\n",
-    "\n",
-    "    #uncomment the following line to see where the prize is.\n",
-    "    #print(\"Spam is in \", spam)\n",
-    "\n",
-    "    #Program randomly picks a door, like the contestant would\n",
-    "    picked_door = random.choice(doors)\n",
-    "    #print(\"Picked door is \", picked_door)\n",
-    "\n",
-    "\n",
-    "    #Now, the host opens a door that doesn't contain a prize.\n",
-    "    #if the contestant picked a door with a dead parrot, Monty Hall picks the one remaining door that was both not picked \n",
-    "    #and doesn't conceal the spam\n",
-    "    if picked_door != spam:\n",
-    "        door_to_open = list(doors)\n",
-    "        door_to_open.remove(spam)\n",
-    "        #print(\"removed spam, so door_to_open is\", door_to_open)\n",
-    "        door_to_open.remove(picked_door)\n",
-    "        open_door = door_to_open[0]\n",
-    "    \n",
-    "\n",
-    "        #print(\"I'll open door\", open_door, \". It's a dead parrot.\")\n",
-    "    \n",
-    "    #otherwise, if the contestant picked the prize, either of the other two doors can be opened\n",
-    "    else:\n",
-    "        door_to_open = list(doors)\n",
-    "        door_to_open.remove(spam)\n",
-    "        open_door = random.choice(door_to_open)\n",
-    "        #print(\"I'll open door\",open_door,\". It's a dead parrot\")\n",
-    "    \n",
-    "    #the alternate door is the one that was neither picked nor opened\n",
-    "    alternate = list(doors)\n",
-    "    alternate.remove(open_door)\n",
-    "    alternate.remove(picked_door)\n",
-    "\n",
-    "    choices = [\"stay\",\"switch\"]\n",
-    "    second_choice = random.choice(choices)\n",
-    "    if str(second_choice) == \"switch\":\n",
-    "        if list(alternate) == list(spam):\n",
-    "            #print(\"You win the Spam!\")\n",
-    "            wins += 1\n",
-    "        else:\n",
-    "            #print(\"Nope, you get a dead parrot.\")\n",
-    "            losses += 1\n",
-    "        \n",
-    "    #if second_choice.title == \"Stay\":\n",
-    "    else:\n",
-    "        if list(picked_door) == list(spam):\n",
-    "            #print(\"You win the Spam!\")\n",
-    "            wins += 1\n",
-    "        else:\n",
-    "            #print(\"Nope, you get a dead parrot.\")\n",
-    "            losses += 1\n",
-    "                 \n",
-    "    runs += 1\n",
-    "    \n",
-    "if (wins+losses) == runs:\n",
-    "    print(\"runs\",num_runs+1)\n",
-    "    print(\"wins\",wins)\n",
-    "    print(\"losses\", losses)\n"
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Dec 30 11:19:37 2019
+
+@author: alma
+"""
+#to illustrate that switching, counterintuitively, increases the odds of winning.
+#contestant choices are automated to allow for a large number of test runs, but could be
+#changed to get user input
+import random
+
+doors = ['A', 'B', 'C']
+num_runs = 30
+runs = 0
+choices = ["stay", "switch"]
+
+switchAndWin = 0 #times winning if you switch
+stayAndWin = 0 #times winning if you stay
+
+while runs <= num_runs:
+    prize = random.choice(doors)
+    picked_door = random.choice(doors)
+    #Monty open a door that was neither chosen nor containing the prize
+    for door in doors:
+        if door != prize and door != picked_door:
+            openedDoor = door
+            break
+        
+    #the contestant can either stay with picked_door or switch to the other unopened one
+    stayOrSwitch = random.choice(choices)
+    if stayOrSwitch == "stay":
+        final = picked_door
+        if final == prize:
+            stayAndWin += 1
+    else: #switch
+        for door in doors:
+            if door != openedDoor and door != picked_door:
+                final = door
+                if final == prize:
+                    switchAndWin += 1
+                break
+                
+    runs += 1
+    
+percentSwitchWin = (switchAndWin/num_runs) * 100
+percentStayWin = (stayAndWin/num_runs) * 100
+
+print("Odds of winning if you stay: " + str(percentStayWin))
+print("Odds of winning if you switch: " + str(percentSwitchWin))

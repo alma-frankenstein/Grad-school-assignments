@@ -1,7 +1,10 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+@author: alma
+"""
 
 import matplotlib.pyplot as plt
-
-y_values=[]
 
 #constants
 a=5
@@ -11,38 +14,28 @@ c=3
 #starting y value
 y_value = 0
 max_time=10
-#tic_list is full range of values, negative and positive
-tic_list=[]
 
 #positive time values
-time_span=list(range(0,max_time))
-
-
-time_span.reverse()
-
-#creates negative time values, adds them to tic_list
-for tic in time_span:
-    neg = tic*(-1)
-    tic_list.append(neg)
+time_span=list(range(0,max_time+1))
 
 time_span.reverse()
 
-#adds positive values to tic_list
+#x_values is full range of values, negative and positive
+x_values = [tic*(-1) for tic in time_span]
+
+time_span.reverse()
+
+#adds positive values to x_values
 for tic in time_span:
-    tic_list.append(tic)
+    x_values.append(tic)
 
-
-for tic in tic_list:
-    #for each time step, do Y=ax**2 + bx + c, add this to the list of y-values
-    y_value=(a*tic**2)+(b*tic)+c
-            
-    y_values.append(y_value)
+y_values = [(a*tic**2)+(b*tic)+c for tic in x_values]
     
 
 print(y_values)
-print(tic_list)
+print(x_values)
     
-plt.plot(tic_list, y_values)
+plt.plot(x_values, y_values)
 
 
   

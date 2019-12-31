@@ -17,24 +17,24 @@ while(step < 15):
                 ca_new.append(0)
             else:
                 ca_new.append(1)
-#
+
 # # left-most cell : check the second cell
         elif(i == 0):
             if ca[1] == 1:
                 ca_new.append(1)
             else: ca_new.append(0)
-#
+
 # # right-most cell : check the second to the last cell
         elif(i == 32):
             if ca[31] == 1:
                 ca_new.append(1)
             else:
                 ca_new.append(0)
-#
+
     print(ca_new)
-#
+
 #  # update cell list
     ca = ca_new[:]
-#
+
 #  # step count
     step +=1

@@ -14,8 +14,8 @@ DOORS = ['A', 'B', 'C']
 CHOICES  = ["stay", "switch"]
 
 def main():
-    trials = 100
-    monty(trials)
+    num_runs = 100
+    monty(num_runs)
     
 def monty(num_runs):
     switchAndWin = 0 #times winning if you switch

@@ -6,45 +6,52 @@ Created on Mon Dec 30 11:19:37 2019
 @author: alma
 """
 #to illustrate that switching, counterintuitively, increases the odds of winning.
-#contestant choices are automated to allow for a large number of test runs, but could be
+#contestant CHOICES  are automated to allow for a large number of test runs, but could be
 #changed to get user input
 import random
 
-doors = ['A', 'B', 'C']
-num_runs = 30
-runs = 0
-choices = ["stay", "switch"]
+DOORS = ['A', 'B', 'C']
+CHOICES  = ["stay", "switch"]
 
-switchAndWin = 0 #times winning if you switch
-stayAndWin = 0 #times winning if you stay
-
-while runs <= num_runs:
-    prize = random.choice(doors)
-    picked_door = random.choice(doors)
-    #Monty open a door that was neither chosen nor containing the prize
-    for door in doors:
-        if door != prize and door != picked_door:
-            openedDoor = door
-            break
-        
-    #the contestant can either stay with picked_door or switch to the other unopened one
-    stayOrSwitch = random.choice(choices)
-    if stayOrSwitch == "stay":
-        final = picked_door
-        if final == prize:
-            stayAndWin += 1
-    else: #switch
-        for door in doors:
-            if door != openedDoor and door != picked_door:
-                final = door
-                if final == prize:
-                    switchAndWin += 1
-                break
-                
-    runs += 1
+def main():
+    trials = 100
+    monty(trials)
     
-percentSwitchWin = (switchAndWin/num_runs) * 100
-percentStayWin = (stayAndWin/num_runs) * 100
+def monty(num_runs):
+    switchAndWin = 0 #times winning if you switch
+    stayAndWin = 0 #times winning if you stay
+    runs = 0
+    
+    while runs <= num_runs:
+        prize = random.choice(DOORS)
+        picked_door = random.choice(DOORS)
+        #Monty open a door that was neither chosen nor containing the prize
+        for door in DOORS:
+            if door != prize and door != picked_door:
+                openedDoor = door
+                break
+            
+        #the contestant can either stay with picked_door or switch to the other unopened one
+        stayOrSwitch = random.choice(CHOICES )
+        if stayOrSwitch == "stay":
+            final = picked_door
+            if final == prize:
+                stayAndWin += 1
+        else: #switch
+            for door in DOORS:
+                if door != openedDoor and door != picked_door:
+                    final = door
+                    if final == prize:
+                        switchAndWin += 1
+                    break
+                    
+        runs += 1
+        
+    percentSwitchWin = (switchAndWin/num_runs) * 100
+    percentStayWin = (stayAndWin/num_runs) * 100
+    
+    print("Odds of winning if you stay: " + str(percentStayWin))
+    print("Odds of winning if you switch: " + str(percentSwitchWin))
 
-print("Odds of winning if you stay: " + str(percentStayWin))
-print("Odds of winning if you switch: " + str(percentSwitchWin))
+if __name__ == '__main__':
+    main()

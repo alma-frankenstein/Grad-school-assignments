@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Dec 30 11:19:37 2019
 
-@author: alma
-"""
 #to illustrate that switching, counterintuitively, increases the odds of winning.
 #contestant CHOICES  are automated to allow for a large number of test runs, but could be
 #changed to get user input
+
 import random
 
 DOORS = ['A', 'B', 'C']

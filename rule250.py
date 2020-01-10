@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Dec 30 17:03:16 2019
 
-@author: alma
-"""
 def main():
     total_steps = 15
     wolfram250(total_steps)
